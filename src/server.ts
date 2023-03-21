@@ -1,14 +1,33 @@
-import fastify from 'fastify';
+import fastify, {
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+} from 'fastify';
+
 import { PrismaClient } from '@prisma/client';
 
-const app = fastify();
+const app: FastifyInstance = fastify();
 
 const prisma = new PrismaClient();
 
-app.get('/', async () => {
+interface TodoParams {
+  id: string;
+}
+
+// GETTING TASKS
+app.get('/todos/:id', async (request, reply) => {
+  const { id } = request.params as TodoParams;
+
+  const todos = await prisma.tasks.findMany({ where: { userID: id } });
+
+  reply.send(todos);
+});
+
+// GETTING USERS
+app.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
   const users = await prisma.userinfos.findMany();
 
-  return { users };
+  reply.send(users);
 });
 
 app
