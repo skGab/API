@@ -17,7 +17,7 @@ model tasks {
 
 model userinfos {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  email    String
+  email    String?
   password String
-  user     String
+  user     String?
 }
