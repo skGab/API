@@ -9,17 +9,15 @@ datasource db {
 
 model tasks {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int     @map("__v")
-  complete  Boolean
+  complete  Boolean? @default(false)
   text      String
-  timestamp String
+  timestamp DateTime? @default(now())
   userID    String
 }
 
 model userinfos {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int     @map("__v")
-  email    String?
+  email    String
   password String
-  user     String?
+  user     String
 }
