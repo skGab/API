@@ -1,6 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
-import { CreateUserRequest } from '../interfaces';
+import { z } from 'zod';
+
+const createUserRequestSchema = z.object({
+  email: z.string().email(),
+  user: z.string(),
+  password: z.string(),
+});
 
 const users = async (app: FastifyInstance, prisma: PrismaClient) => {
   // GET METHOD
@@ -13,16 +19,25 @@ const users = async (app: FastifyInstance, prisma: PrismaClient) => {
   // POST METHOD
   app.post(
     '/users/new',
-    async (request: FastifyRequest<{ Body: CreateUserRequest }>, reply) => {
-      const newUser = await prisma.userinfos.create({
-        data: {
-          email: request.body.email,
-          user: request.body.user,
-          password: request.body.password,
-        },
-      });
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        const body = createUserRequestSchema.parse(request.body);
 
-      return reply.send(newUser);
+        const newUser = await prisma.userinfos.create({
+          data: {
+            email: body.email,
+            user: body.user,
+            password: body.password,
+          },
+        });
+
+        return reply.send(newUser);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          return reply.status(400).send({ error: 'Invalid request body' });
+        }
+        return reply.send(error);
+      }
     }
   );
 };
