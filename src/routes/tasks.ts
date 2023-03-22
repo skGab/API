@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
 import {
   CreateTodoRequest,
-  NewTodoRouteGenericInterface,
+  NewTodoRequestRouteInterface,
   TodoParams,
 } from '../interfaces';
 
@@ -17,7 +17,7 @@ const tasks = async (app: FastifyInstance, prisma: PrismaClient) => {
   });
 
   // POST METHOD
-  app.post<NewTodoRouteGenericInterface>(
+  app.post<NewTodoRequestRouteInterface>(
     '/todos/new',
     async (
       request: FastifyRequest<{ Body: CreateTodoRequest }>,
