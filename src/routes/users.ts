@@ -11,9 +11,16 @@ const createUserRequestSchema = z.object({
 const users = async (app: FastifyInstance, prisma: PrismaClient) => {
   // GET METHOD
   app.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-    const users = await prisma.userinfos.findMany();
-
-    return reply.status(200).send(users);
+    try {
+      const users = await prisma.userinfos.findMany();
+      return reply.status(200).send(users);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors = error.flatten().fieldErrors;
+        return reply.send(errors);
+      }
+      return reply.send(error);
+    }
   });
 
   // POST METHOD
@@ -31,10 +38,11 @@ const users = async (app: FastifyInstance, prisma: PrismaClient) => {
           },
         });
 
-        return reply.send(newUser);
+        return reply.send(newUser).status(200);
       } catch (error) {
         if (error instanceof z.ZodError) {
-          return reply.status(400).send({ error: 'Invalid request body' });
+          const errors = error.flatten().fieldErrors;
+          return reply.send(errors);
         }
         return reply.send(error);
       }

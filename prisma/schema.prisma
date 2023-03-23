@@ -11,8 +11,9 @@ model tasks {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   complete  Boolean? @default(false)
   text      String
-  timestamp DateTime? @default(now())
-  userID    String
+  createdAt DateTime ? @default(now())
+  userID    String @db.ObjectId
+  user      userinfos @relation(fields: [userID], references: [id])
 }
 
 model userinfos {
@@ -20,4 +21,5 @@ model userinfos {
   email    String?
   password String
   user     String?
+  tasks    tasks[]
 }

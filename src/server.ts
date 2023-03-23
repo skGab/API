@@ -17,5 +17,8 @@ app
     port: process.env.Port ? Number(process.env.Port) : 3333,
   })
   .then(() => {
-    console.log('HTTP Server Running');
+    console.log('Server is running on port http://localhost:3333');
+  })
+  .catch((error) => {
+    console.error('Error  when starting the server:', error);
   });
