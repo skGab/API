@@ -1,4 +1,4 @@
-import { RouteGenericInterface } from 'fastify';
+import { RequestGenericInterface } from 'fastify';
 export interface TodoParams {
   // Defines the shape of the TodoParams object, which contains an 'id' property
   id: string;
@@ -15,7 +15,7 @@ export interface CreateUserRequest {
   email: string;
   password: string;
 }
-export interface NewTodoRequestRouteInterface extends RouteGenericInterface {
+export interface NewTodoRequestRouteInterface extends RequestGenericInterface {
   // Defines the shape of the NewTodoRouteGenericInterface object, which extends RouteGenericInterface and specifies the request body shape as CreateTodoRequest
   Body: CreateTodoRequest;
 }

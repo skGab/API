@@ -69,7 +69,7 @@ const tasks = async (app: FastifyInstance, prisma: PrismaClient) => {
           },
         });
 
-        return reply.status(200).send('Tarefa deletada!');
+        return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof z.ZodError) {
           const errors = error.flatten().fieldErrors;
@@ -115,7 +115,7 @@ const tasks = async (app: FastifyInstance, prisma: PrismaClient) => {
           },
         });
 
-        return reply.status(200).send('Todas as tarefas deletadas!');
+        return reply.status(200).send(result);
       } catch (error) {
         if (error instanceof z.ZodError) {
           const errors = error.flatten().fieldErrors;

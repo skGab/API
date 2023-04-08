@@ -2,10 +2,15 @@ import fastify, { FastifyInstance } from 'fastify';
 import { PrismaClient } from '@prisma/client';
 import tasks from './routes/tasks';
 import users from './routes/users';
+import fastifyCors from '@fastify/cors';
 
 const app: FastifyInstance = fastify();
 
 const prisma = new PrismaClient();
+
+app.register(fastifyCors, {
+  origin: true,  
+});
 
 tasks(app, prisma);
 

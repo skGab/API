@@ -3,8 +3,8 @@ import { FastifyRequest, FastifyReply, FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
 const createUserRequestSchema = z.object({
-  email: z.string().email(),
-  user: z.string(),
+  email: z.string().email().optional(),
+  user: z.string().optional(),
   password: z.string(),
 });
 
