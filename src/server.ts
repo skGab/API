@@ -9,20 +9,22 @@ const app: FastifyInstance = fastify();
 const prisma = new PrismaClient();
 
 app.register(fastifyCors, {
-  origin: true,  
+  origin: true,
 });
 
 tasks(app, prisma);
 
 users(app, prisma);
 
+const port = process.env.Port ? Number(process.env.Port) : 3333;
+
 app
   .listen({
     host: '0.0.0.0',
-    port: process.env.Port ? Number(process.env.Port) : 3333,
+    port: port,
   })
   .then(() => {
-    console.log('Server is running on port http://localhost:3333');
+    console.log(`Server is running on port ${port}`);
   })
   .catch((error) => {
     console.error('Error  when starting the server:', error);
