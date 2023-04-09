@@ -139,8 +139,9 @@ const tasks = async (app: FastifyInstance, prisma: PrismaClient) => {
       try {
         const task = await prisma.tasks.update({
           where: { id: request.params.id },
-          data: { complete: { set: !request.body.complete } },
+          data: { complete: !request.body.complete },
         });
+
         reply.send(task).status(200);
       } catch (error) {
         if (error instanceof z.ZodError) {
