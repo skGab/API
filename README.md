@@ -21,7 +21,7 @@
 <!-- DESCRIPTION -->
 <p align="center"> 
         💡 
-        API escrita em Node.js/TypeScript que oferece operações CRUD e autenticação de usuários. Além de seu propósito de aprendizado na construção de APIs, suporta dois projetos pessoais, no lado do cliente, <a href="https://github.com/zDeep10/Coopers" target="_blank">'Coopers'</a> e 'Login App' (projeto arquivado)</a>.
+        API escrita em Node.js/TypeScript que oferece operações CRUD e autenticação de usuários. Além de seu propósito de aprendizado na construção de APIs, suporta dois projetos pessoais, no lado do cliente, <a href="https://github.com/zDeep10/Coopers" target="_blank">Coopers</a> e Login App (projeto arquivado)</a>.
   <br> 
 </p>
 
